@@ -1,0 +1,82 @@
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master, main ]
+    paths:
+      - 'RobustToolbox/'
+      - '.github/workflows/update-wiki-json.yml'
+      - 'Content.Server/GuideGenerator/**.cs'
+      - 'Content.Shared/Chemistry/**.cs'
+      - 'Content.Server/Chemistry/**.cs'
+      - 'Content.Server/_White/GuideGenerator/**.cs'
+      - 'Content.Server/Research/Systems/**.cs'
+      - 'Content.Shared/Research/Prototypes'
+      - 'Resources/Prototypes/Research/**.yml'
+
+jobs:
+  update-wiki:
+    name: Build and Publish JSON blobs to wiki
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Master
+      uses: actions/checkout@v3.6.0
+
+    - name: Setup Submodule
+      run: |
+        git submodule update --init --recursive
+
+    - name: Pull Engine Updates
+      uses: space-wizards/submodule-dependency@v0.1.5
+
+    - name: Update Engine Submodules
+      run: |
+        cd RobustToolbox/
+        git submodule update --init --recursive
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3.2.0
+      with:
+        dotnet-version: 7.0.x
+
+    - name: Install Dependencies
+      run: dotnet restore
+
+    - name: Build Project
+      run: dotnet build --configuration Release --no-restore /p:WarningsAsErrors=nullable /m
+
+    - name: Generate JSON blobs for prototypes
+      run: dotnet ./bin/Content.Server/Content.Server.dll --cvar autogen.destination_file=prototypes.json
+      continue-on-error: true
+
+    #
+    - name: Checkout primary repo
+      uses: actions/checkout@v3
+
+    # Шаг 2: Клонируем второй репозиторий
+    - name: Checkout secondary repo
+      uses: actions/checkout@v3
+      with:
+        repository: user/secondary-repo
+        path: secondary-repo
+        token: ${{ secrets.SECONDARY_REPO_TOKEN }}
+
+    # Шаг 3: Извлекаем данные из JSON файла основного репозитория
+    - name: Extract research_prototypes.json
+      run: |
+        node <<EOF
+        const fs = require('fs');
+        const data = JSON.parse(fs.readFileSync('./bin/Content.Server/data/research_prototypes.json', 'utf-8'));
+        fs.writeFileSync('ProstoGavrik/JsonPrototypes/research_prototypes.json', JSON.stringify(data, null, 2));
+        EOF
+
+    # Шаг 4: Коммит и пуш изменений
+    - name: Commit and push changes
+      working-directory: secondary-repo
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add .
+        git commit -m "Update JSON file"
+        git push
+      
