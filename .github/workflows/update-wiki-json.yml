@@ -61,15 +61,15 @@ jobs:
         dir="./bin/Content.Server/data"
         echo "| $dir"
         ls ./bin/Content.Server/data
-    # - name: Copy research_prototypes.json
-    #   run: cp ./bin/Content.Server/data/research_prototypes.json target-repo/research_prototypes.json
+    - name: Copy research_prototypes.json
+      run: cp ./bin/Content.Server/data/research_prototypes.json target-repo/research_prototypes.json
 
-    # - name: Commit and push changes
-    #  working-directory: target-repo
-    #  run: |
-    #    git config --global user.name "GitHub Actions"
-    #    git config --global user.email "actions@github.com"
-    #    git add .
-    #    git commit -m "Update JSON file"
-    #    git push
+    - name: Commit and push changes
+      working-directory: target-repo
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add .
+        git commit -m "Update JSON file"
+        git push
       
