@@ -59,7 +59,7 @@ jobs:
       with:
         repository: user/secondary-repo
         path: secondary-repo
-        token: ${{ secrets.SECONDARY_REPO_TOKEN }}
+        token: ${{ secrets.TARGER_REPO_TOKEN }}
 
     # Шаг 3: Извлекаем данные из JSON файла основного репозитория
     - name: Extract research_prototypes.json
