@@ -49,11 +49,6 @@ jobs:
       run: dotnet ./bin/Content.Server/Content.Server.dll --cvar autogen.destination_file=prototypes.json
       continue-on-error: true
 
-    #
-    - name: Checkout primary repo
-      uses: actions/checkout@v3
-
-    # Шаг 2: Клонируем второй репозиторий
     - name: Checkout target repo
       uses: actions/checkout@v3
       with:
@@ -61,7 +56,6 @@ jobs:
         path: target-repo
         token: ${{ secrets.TARGER_REPO_TOKEN }}
 
-    # Шаг 3: Извлекаем данные из JSON файла основного репозитория
     - name: Copy research_prototypes.json
       run: |
         dir="./bin/Content.Server/data"
@@ -70,13 +64,12 @@ jobs:
     # - name: Copy research_prototypes.json
     #   run: cp ./bin/Content.Server/data/research_prototypes.json target-repo/research_prototypes.json
 
-    # Шаг 4: Коммит и пуш изменений
-    - name: Commit and push changes
-      working-directory: target-repo
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git add .
-        git commit -m "Update JSON file"
-        git push
+    # - name: Commit and push changes
+    #  working-directory: target-repo
+    #  run: |
+    #    git config --global user.name "GitHub Actions"
+    #    git config --global user.email "actions@github.com"
+    #    git add .
+    #    git commit -m "Update JSON file"
+    #    git push
       
