@@ -59,7 +59,7 @@ jobs:
     - name: Copy the file
       run: |
           mkdir -p temp-file
-          cp ./bin/Content.Server/data/*.json temp-file/
+          cp ./bin/Content.Server/data/*.json target-repo/
           
   
     - name: Commit and push changes
