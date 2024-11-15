@@ -54,7 +54,7 @@ jobs:
       uses: actions/checkout@v3
 
     # Шаг 2: Клонируем второй репозиторий
-    - name: Checkout secondary repo
+    - name: Checkout target repo
       uses: actions/checkout@v3
       with:
         repository: ProstoGavrik/JsonPrototypes
@@ -62,13 +62,8 @@ jobs:
         token: ${{ secrets.TARGER_REPO_TOKEN }}
 
     # Шаг 3: Извлекаем данные из JSON файла основного репозитория
-    - name: Extract research_prototypes.json
-      run: |
-        node <<EOF
-        const fs = require('fs');
-        const data = JSON.parse(fs.readFileSync('./bin/Content.Server/data/research_prototypes.json', 'utf-8'));
-        fs.writeFileSync('target-repo/research_prototypes.json', JSON.stringify(data, null, 2));
-        EOF
+    - name: Copy research_prototypes.json
+      run: cp ./bin/Content.Server/data/research_prototypes.json target-repo/research_prototypes.json
 
     # Шаг 4: Коммит и пуш изменений
     - name: Commit and push changes
