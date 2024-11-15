@@ -60,7 +60,7 @@ jobs:
       run: |
         dir="./bin/Content.Server/data"
         echo "| $dir"
-        ls %dir
+        ls ./bin/Content.Server/data
     # - name: Copy research_prototypes.json
     #   run: cp ./bin/Content.Server/data/research_prototypes.json target-repo/research_prototypes.json
 
