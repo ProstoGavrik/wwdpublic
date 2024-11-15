@@ -63,7 +63,12 @@ jobs:
 
     # Шаг 3: Извлекаем данные из JSON файла основного репозитория
     - name: Copy research_prototypes.json
-      run: cp ./bin/Content.Server/data/research_prototypes.json target-repo/research_prototypes.json
+      run: |
+        dir="./bin/Content.Server/data"
+        echo "| $dir"
+        ls %dir
+    # - name: Copy research_prototypes.json
+    #   run: cp ./bin/Content.Server/data/research_prototypes.json target-repo/research_prototypes.json
 
     # Шаг 4: Коммит и пуш изменений
     - name: Commit and push changes
