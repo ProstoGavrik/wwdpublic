@@ -47,8 +47,4 @@ jobs:
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
         git commit -m "Update json files via GitHub Action"
-
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.TARGET_REPO_TOKEN }}
+        git push original
