@@ -27,4 +27,4 @@ jobs:
       with:
         repository: https://github.com/ProstoGavrik/wiki_json_prototypes
         path: target-repo
-        token: ${{ secrets.TARGET_REPO_TOKEN }}
+        ssh-key: ${{ secrets.TARGET_REPO_TOKEN }}
