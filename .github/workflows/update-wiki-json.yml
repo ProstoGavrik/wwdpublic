@@ -25,6 +25,6 @@ jobs:
     - name: Checkout target repo
       uses: actions/checkout@v3
       with:
-        repository: https://github.com/ProstoGavrik/wiki_json_prototypes
+        repository: ProstoGavrik/wiki_json_prototypes
         path: target-repo
         ssh-key: ${{ secrets.TARGET_REPO_TOKEN }}
