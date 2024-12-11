@@ -29,10 +29,6 @@ jobs:
         path: target-repo
         ssh-key: ${{ secrets.TARGET_REPO_TOKEN }}
           
-    - name: Commit and push changes
-      working-directory: target-repo
+    - name: test
       run: |
-        cd target-repo
-        git add .
-        git commit -m "Update json files"
-        git push
+        echo %cd%
