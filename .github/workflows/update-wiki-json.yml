@@ -47,4 +47,4 @@ jobs:
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
         git commit -m "Update json files via GitHub Action"
-        git pull
+        git request-pull v1.0 https://github.com/ProstoGavrik/wiki_json_prototypes master
