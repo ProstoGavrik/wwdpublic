@@ -32,7 +32,7 @@ jobs:
     - name: Commit and push changes
       working-directory: target-repo
       run: |
-        copy .github/workflows/update-wiki-json.yml
+        copy .github/workflows/update-wiki-json.yml target-repo/
         cd target-repo
         git add .
         git commit -m "Update json files"
