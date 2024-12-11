@@ -28,10 +28,6 @@ jobs:
         repository: ProstoGavrik/wiki_json_prototypes
         path: target-repo
         ssh-key: ${{ secrets.TARGET_REPO_TOKEN }}
-        
-    - name: Copy the files
-      run: |
-          copy .github/workflows/update-wiki-json.yml
           
     - name: Commit and push changes
       working-directory: target-repo
