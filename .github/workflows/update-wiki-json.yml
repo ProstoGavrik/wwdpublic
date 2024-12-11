@@ -22,52 +22,9 @@ jobs:
     - name: Checkout Master
       uses: actions/checkout@v3.6.0
 
-    - name: Setup Submodule
-      run: |
-        git submodule update --init --recursive
-
-    - name: Pull Engine Updates
-      uses: space-wizards/submodule-dependency@v0.1.5
-
-    - name: Update Engine Submodules
-      run: |
-        cd RobustToolbox/
-        git submodule update --init --recursive
-
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.100
-
-    - name: Install Dependencies
-      run: dotnet restore
-
-    - name: Build Project
-      run: dotnet build --configuration Release --no-restore /p:WarningsAsErrors=nullable /m
-
-    - name: Generate JSON blobs for prototypes
-      run: dotnet ./bin/Content.Server/Content.Server.dll --cvar autogen.destination_file=prototypes.json
-      continue-on-error: true
-
     - name: Checkout target repo
       uses: actions/checkout@v3
       with:
-        repository: ProstoGavrik/JsonPrototypes
+        repository: ProstoGavrik/wiki_json_prototypes
         path: target-repo
-        token: ${{ secrets.TARGER_REPO_TOKEN }}
-
-    - name: Copy the file
-      run: |
-          mkdir -p temp-file
-          cp ./bin/Content.Server/data/*.json target-repo/
-          
-  
-    - name: Commit and push changes
-      working-directory: target-repo
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git add .
-        git commit -m "Update JSON file"
-        git push
-      
+        token: ${{ secrets.TARGET_REPO_TOKEN }}
