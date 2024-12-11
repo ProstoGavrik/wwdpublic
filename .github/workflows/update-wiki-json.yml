@@ -39,5 +39,7 @@ jobs:
       working-directory: target-repo
       run: |
         git add .
+        git config --global user.email "action@github.com"
+        git config --global user.name "Bot"
         git commit -m "Update json files"
         git push
