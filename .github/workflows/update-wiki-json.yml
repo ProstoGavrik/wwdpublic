@@ -32,7 +32,7 @@ jobs:
     - name: Commit and push changes
       working-directory: target-repo
       run: |
-        git clone git clone https://.:${{ secrets.TARGET_REPO_TOKEN }}@github.com/project
+        git clone https://.:${{ secrets.TARGET_REPO_TOKEN }}@github.com/project
         copy .github/workflows/update-wiki-json.yml
         cd target-repo
         git add .
