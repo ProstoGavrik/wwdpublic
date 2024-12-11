@@ -32,9 +32,9 @@ jobs:
     - name: Commit and push changes
       working-directory: target-repo
       run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
         git clone 
-        git add ".github/workflows/update-wiki-json.yml"
+        copy .github/workflows/update-wiki-json.yml
+        cd target-repo
+        git add .
         git commit -m "Update json files"
         git push
