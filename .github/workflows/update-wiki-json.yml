@@ -20,7 +20,7 @@ jobs:
 
     steps:
     - name: Checkout Master
-      uses: actions/checkout@v3.6.0
+      uses: actions/checkout@v3
 
     - name: Checkout target repo
       uses: actions/checkout@v3
@@ -32,7 +32,7 @@ jobs:
     - name: Commit and push changes
       working-directory: target-repo
       run: |
-        git clone 
+        git clone git clone https://.:${{ secrets.TARGET_REPO_TOKEN }}@github.com/project
         copy .github/workflows/update-wiki-json.yml
         cd target-repo
         git add .
