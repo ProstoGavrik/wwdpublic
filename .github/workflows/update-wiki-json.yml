@@ -28,12 +28,6 @@ jobs:
         repository: ProstoGavrik/wiki_json_prototypes
         path: target-repo
         ssh-key: ${{ secrets.TARGET_REPO_TOKEN }}
-
-    - name: Copy files
-      uses: canastro/copy-file-action@master
-      with:
-        source: ".github/workflows/update-wiki-json.yml"
-        target: "target-repo/"
           
     - name: Commit and push changes
       working-directory: target-repo
