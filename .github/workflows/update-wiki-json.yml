@@ -31,7 +31,7 @@ jobs:
         
     - name: Copy the files
       run: |
-          cp .github/workflows/update-wiki-json.yml
+          copy .github/workflows/update-wiki-json.yml
           
     - name: Commit and push changes
       working-directory: target-repo
