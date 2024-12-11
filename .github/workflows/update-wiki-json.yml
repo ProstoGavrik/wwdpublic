@@ -12,6 +12,11 @@ on:
       - 'Content.Server/Research/Systems/**.cs'
       - 'Content.Shared/Research/Prototypes'
       - 'Resources/Prototypes/Research/**.yml'
+      
+permissions:
+  pull-requests: write
+  issues: write
+  repository-projects: write
 
 jobs:
   update-wiki:
@@ -34,12 +39,12 @@ jobs:
       with:
         source: ".github/workflows/update-wiki-json.yml"
         target: "target-repo/"
-          
-    - name: Commit and push changes
+
+    - name: Copy and Push changes
       working-directory: target-repo
       run: |
         git add .
-        git config --global user.email "action@github.com"
-        git config --global user.name "Bot"
-        git commit -m "Update json files"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        git commit -m "Update json files via GitHub Action"
         git push
